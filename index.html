@@ -19,52 +19,72 @@
       --green-soft: rgba(16, 185, 129, 0.16);
       --red: #ef4444;
       --red-soft: rgba(239, 68, 68, 0.16);
-      --amber: #f59e0b;
-      --amber-soft: rgba(245, 158, 11, 0.16);
     }
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     body {
       margin: 0;
-      padding: 14px 12px 44px;
+      padding: 16px 14px 44px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.35;
     }
 
-    .header {
+    .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
-    .title {
-      font-size: 19px;
+    .title { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+    .subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .back-btn {
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: -0.3px;
+      cursor: pointer;
     }
 
-    .subtitle {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 2px;
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .menu-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
     }
 
-    .badge-live {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: #93c5fd;
-      border: 1px solid rgba(59, 130, 246, 0.35);
+    .big-menu-btn {
+      width: 100%;
+      padding: 20px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.08s ease, border-color 0.15s ease, background 0.15s ease;
     }
+
+    .big-menu-btn:active { transform: scale(0.98); }
+    .big-menu-btn.rt:hover, .big-menu-btn.rt.selected { border-color: #ef4444; background: var(--red-soft); }
+    .big-menu-btn.bt:hover, .big-menu-btn.bt.selected { border-color: #3b82f6; background: var(--accent-soft); }
+    .big-menu-btn.st:hover { border-color: #10b981; background: var(--green-soft); }
+
+    .menu-sub { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 4px; text-align: left; }
 
     .section {
       background: var(--card);
@@ -79,28 +99,11 @@
       font-weight: 600;
       color: var(--muted);
       margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
     .btn {
       appearance: none;
@@ -108,154 +111,20 @@
       background: var(--card-2);
       color: var(--text);
       border-radius: 12px;
-      padding: 11px 10px;
+      padding: 12px 10px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      text-align: center;
     }
 
-    .btn:active {
-      transform: scale(0.97);
-    }
-
-    .btn.active {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: #bfdbfe;
-      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25);
-    }
-
-    .btn.profit.active {
-      background: var(--green-soft);
-      border-color: var(--green);
-      color: #6ee7b7;
-    }
-
-    .btn.loss.active {
-      background: var(--red-soft);
-      border-color: var(--red);
-      color: #fca5a5;
-    }
-
-    /* Statistika bloki */
-    .stats-controls {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-
-    .preset-btn {
-      border: 1px solid var(--border);
-      background: var(--card-2);
-      color: var(--muted);
-      border-radius: 10px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .preset-btn.active {
-      background: var(--accent-soft);
-      color: #bfdbfe;
-      border-color: var(--accent);
-    }
-
-    .custom-limit-wrap {
-      display: flex;
-      gap: 6px;
-      flex: 1;
-      min-width: 120px;
-    }
-
-    .num-input {
-      width: 100%;
-      background: var(--bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 7px 10px;
-      font-size: 13px;
-      font-weight: 600;
-      outline: none;
-    }
-
-    .num-input:focus {
-      border-color: var(--accent);
-    }
-
-    .refresh-btn {
-      border: 1px solid var(--border);
-      background: var(--card-2);
-      color: var(--text);
-      border-radius: 10px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .kpi {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 9px;
-      text-align: center;
-    }
-
-    .kpi-val {
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-    .kpi-lbl {
-      font-size: 10px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .kpi-val.green { color: #34d399; }
-    .kpi-val.red { color: #f87171; }
-    .kpi-val.blue { color: #60a5fa; }
-
-    .detail-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 9px 10px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-
-    .detail-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .detail-val {
-      color: var(--text);
-      font-weight: 600;
-    }
+    .btn:active { transform: scale(0.97); }
+    .btn.active { background: var(--accent-soft); border-color: var(--accent); color: #bfdbfe; }
+    .btn.profit.active { background: var(--green-soft); border-color: var(--green); color: #6ee7b7; }
+    .btn.loss.active { background: var(--red-soft); border-color: var(--red); color: #fca5a5; }
 
     .loss-box {
       display: none;
@@ -263,31 +132,31 @@
       padding-top: 10px;
       border-top: 1px dashed var(--border);
     }
+    .loss-box.show { display: block; }
 
-    .loss-box.show {
-      display: block;
-    }
-
-    .note-input {
+    .note-input, .num-input {
       width: 100%;
-      margin-top: 8px;
       background: var(--bg);
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 10px 12px;
+      padding: 11px 12px;
       font-size: 13px;
       outline: none;
     }
+    .note-input { margin-top: 8px; }
+    .note-input:focus, .num-input:focus { border-color: var(--accent); }
 
-    .note-input:focus {
-      border-color: var(--accent);
+    .custom-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
     }
 
     .submit-btn {
       width: 100%;
       margin-top: 6px;
-      padding: 14px;
+      padding: 15px;
       border-radius: 14px;
       border: none;
       font-size: 15px;
@@ -295,13 +164,8 @@
       cursor: pointer;
       background: linear-gradient(135deg, #2563eb, #3b82f6);
       color: #ffffff;
-      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
     }
-
-    .submit-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .status {
       margin-top: 10px;
@@ -312,172 +176,289 @@
       text-align: center;
       font-weight: 600;
     }
-
     .status.show { display: block; }
-    .status.ok {
-      background: var(--green-soft);
-      color: #6ee7b7;
-      border: 1px solid rgba(16, 185, 129, 0.35);
+    .status.ok { background: var(--green-soft); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .status.err { background: var(--red-soft); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+
+    /* Loading va Statistika natijasi */
+    .loading-box {
+      display: none;
+      text-align: center;
+      padding: 28px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-top: 10px;
     }
-    .status.err {
-      background: var(--red-soft);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.35);
+    .loading-box.show { display: block; }
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(255,255,255,0.12);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 10px;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .result-card {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+    .result-card.show { display: block; }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .kpi {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+    .kpi-val { font-size: 18px; font-weight: 800; }
+    .kpi-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .green { color: #34d399; }
+    .red { color: #f87171; }
+    .blue { color: #60a5fa; }
+
+    .info-list {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-k { color: var(--muted); }
+    .info-v { font-weight: 700; text-align: right; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div>
-      <div class="title">Treyding Jurnal</div>
-      <div class="subtitle">4H EMA 200 • 15M VAH/VAL • 15M Volume</div>
-    </div>
-    <div class="badge-live" id="modeBadge">REALTIME</div>
-  </div>
 
-  <!-- 1. Rejim (Kirishdayoq tanlanadi va statistikaga ham ta'sir qiladi) -->
-  <div class="section">
-    <div class="label"><span>1. Rejim</span></div>
-    <div class="grid-2" data-group="mode">
-      <button type="button" class="btn active" data-value="Realtime">🔴 Realtime</button>
-      <button type="button" class="btn" data-value="Backtest">🧪 Backtest</button>
-    </div>
-  </div>
-
-  <!-- Statistika bo'limi -->
-  <div class="section">
-    <div class="label">
-      <span>📊 Statistika (<span id="statModeLabel">Realtime</span>)</span>
-      <span id="statStatusText" style="font-size:11px;color:#60a5fa;">Yuklanmoqda...</span>
-    </div>
-
-    <div class="stats-controls">
-      <button type="button" class="preset-btn active" data-limit="10">Oxirgi 10</button>
-      <button type="button" class="preset-btn" data-limit="50">50</button>
-      <button type="button" class="preset-btn" data-limit="100">100</button>
-      <div class="custom-limit-wrap">
-        <input type="number" id="customLimitInput" class="num-input" min="1" max="1000" placeholder="Son (mas: 25)" />
-        <button type="button" class="refresh-btn" id="applyLimitBtn">Koʻr</button>
+  <!-- 1-EKRAN: BOSH MENYU (3 TA TUGMA) -->
+  <div class="screen active" id="screenHome">
+    <div class="topbar">
+      <div>
+        <div class="title">Treyding Jurnal</div>
+        <div class="subtitle">Boʻlimni tanlang</div>
       </div>
     </div>
 
-    <div class="kpi-grid">
-      <div class="kpi">
-        <div class="kpi-val blue" id="kpiWinRate">0%</div>
-        <div class="kpi-lbl">Win Rate</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val green" id="kpiWins">0</div>
-        <div class="kpi-lbl">Foyda</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val red" id="kpiLosses">0</div>
-        <div class="kpi-lbl">Zarar</div>
-      </div>
-    </div>
+    <div class="menu-stack">
+      <button type="button" class="big-menu-btn rt" id="openRealtimeBtn">
+        <div>
+          <div>🔴 Realtime</div>
+          <div class="menu-sub">Haqiqiy bozor savdosini kiritish</div>
+        </div>
+        <span>›</span>
+      </button>
 
-    <div class="detail-box">
-      <div class="detail-row">
-        <span>Qamralgan bitimlar:</span>
-        <span class="detail-val" id="statSampleInfo">0 / 10</span>
-      </div>
-      <div class="detail-row">
-        <span>TP1 / TP2 / TP3 / BE:</span>
-        <span class="detail-val" id="statTargets">0 / 0 / 0 / 0</span>
-      </div>
-      <div class="detail-row">
-        <span>Koʻp zarar sababi:</span>
-        <span class="detail-val" id="statTopLoss">-</span>
-      </div>
-      <div class="detail-row">
-        <span>Zona (VAH / VAL):</span>
-        <span class="detail-val" id="statZones">-</span>
-      </div>
+      <button type="button" class="big-menu-btn bt" id="openBacktestBtn">
+        <div>
+          <div>🧪 Backtest</div>
+          <div class="menu-sub">Tarixiy test bitimini kiritish</div>
+        </div>
+        <span>›</span>
+      </button>
+
+      <button type="button" class="big-menu-btn st" id="openStatsBtn">
+        <div>
+          <div>📊 Statistika</div>
+          <div class="menu-sub">Realtime yoki Backtest natijalarini koʻrish</div>
+        </div>
+        <span>›</span>
+      </button>
     </div>
   </div>
 
-  <!-- 2. Juftlik -->
-  <div class="section">
-    <div class="label"><span>2. Juftlik</span></div>
-    <div class="grid-3" data-group="pair">
-      <button type="button" class="btn active" data-value="EUR/USD">EUR/USD</button>
-      <button type="button" class="btn" data-value="AUD/USD">AUD/USD</button>
-      <button type="button" class="btn" data-value="USD/CAD">USD/CAD</button>
-    </div>
-  </div>
-
-  <!-- 3. 4H Trend -->
-  <div class="section">
-    <div class="label"><span>3. 4H Trend (EMA 200)</span></div>
-    <div class="grid-2" data-group="trend4H">
-      <button type="button" class="btn active" data-value="SELL">📉 SELL</button>
-      <button type="button" class="btn" data-value="BUY">📈 BUY</button>
-    </div>
-  </div>
-
-  <!-- 4. 15M VRVP Zona (Faqat VAH yoki VAL) -->
-  <div class="section">
-    <div class="label"><span>4. 15M VRVP Zona</span></div>
-    <div class="grid-2" data-group="zone15M">
-      <button type="button" class="btn active" data-value="VAH">VAH</button>
-      <button type="button" class="btn" data-value="VAL">VAL</button>
-    </div>
-  </div>
-
-  <!-- 5. Yo'nalish -->
-  <div class="section">
-    <div class="label"><span>5. Yoʻnalish</span></div>
-    <div class="grid-2" data-group="side">
-      <button type="button" class="btn active" data-value="SELL">SELL</button>
-      <button type="button" class="btn" data-value="BUY">BUY</button>
-    </div>
-  </div>
-
-  <!-- 6. 15M Volume -->
-  <div class="section">
-    <div class="label"><span>6. 15M Volume</span></div>
-    <div class="grid-2" data-group="volume15M">
-      <button type="button" class="btn active" data-value="Katta">📊 Katta</button>
-      <button type="button" class="btn" data-value="Kichik">📉 Kichik</button>
-    </div>
-  </div>
-
-  <!-- 7. Reja (TP / Bezubitok) -->
-  <div class="section">
-    <div class="label"><span>7. Reja (TP / Himoya)</span></div>
-    <div class="grid-4" data-group="plan">
-      <button type="button" class="btn active" data-value="TP1">TP1</button>
-      <button type="button" class="btn" data-value="TP2">TP2</button>
-      <button type="button" class="btn" data-value="TP3">TP3</button>
-      <button type="button" class="btn" data-value="Bezubitok">Bezubitok</button>
-    </div>
-  </div>
-
-  <!-- 8. Natija -->
-  <div class="section">
-    <div class="label"><span>8. Natija</span></div>
-    <div class="grid-2" data-group="result">
-      <button type="button" class="btn profit active" data-value="Foyda">✅ Foyda</button>
-      <button type="button" class="btn loss" data-value="Zarar">❌ Zarar</button>
-    </div>
-
-    <div class="loss-box" id="lossBox">
-      <div class="label" style="margin-top:4px;"><span>Nega zarar boʻldi?</span></div>
-      <div class="grid-2" data-group="lossReason">
-        <button type="button" class="btn active" data-value="Spred / Impuls">Spred / Impuls</button>
-        <button type="button" class="btn" data-value="Erta kirish">Erta kirish</button>
-        <button type="button" class="btn" data-value="Trendga qarshi">Trendga qarshi</button>
-        <button type="button" class="btn" data-value="Boshqa">Boshqa</button>
+  <!-- 2-EKRAN: SAVDO KIRITISH (REALTIME YOKI BACKTEST) -->
+  <div class="screen" id="screenEntry">
+    <div class="topbar">
+      <div>
+        <div class="title" id="entryTitle">🔴 Realtime Savdo</div>
+        <div class="subtitle">4H EMA 200 • 15M VAH/VAL • 15M Volume</div>
       </div>
-      <input type="text" id="extraNote" class="note-input" placeholder="Qoʻshimcha qisqa izoh (ixtiyoriy)..." />
+      <button type="button" class="back-btn" id="backFromEntry">⬅️ Menyu</button>
     </div>
+
+    <div class="section">
+      <div class="label">1. Juftlik</div>
+      <div class="grid-3" data-group="pair">
+        <button type="button" class="btn active" data-value="EUR/USD">EUR/USD</button>
+        <button type="button" class="btn" data-value="AUD/USD">AUD/USD</button>
+        <button type="button" class="btn" data-value="USD/CAD">USD/CAD</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">2. 4H Trend (EMA 200)</div>
+      <div class="grid-2" data-group="trend4H">
+        <button type="button" class="btn active" data-value="SELL">📉 SELL</button>
+        <button type="button" class="btn" data-value="BUY">📈 BUY</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">3. 15M VRVP Zona</div>
+      <div class="grid-2" data-group="zone15M">
+        <button type="button" class="btn active" data-value="VAH">VAH</button>
+        <button type="button" class="btn" data-value="VAL">VAL</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">4. Yoʻnalish</div>
+      <div class="grid-2" data-group="side">
+        <button type="button" class="btn active" data-value="SELL">SELL</button>
+        <button type="button" class="btn" data-value="BUY">BUY</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">5. 15M Volume</div>
+      <div class="grid-2" data-group="volume15M">
+        <button type="button" class="btn active" data-value="Katta">📊 Katta</button>
+        <button type="button" class="btn" data-value="Kichik">📉 Kichik</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">6. Reja (TP / Himoya)</div>
+      <div class="grid-4" data-group="plan">
+        <button type="button" class="btn active" data-value="TP1">TP1</button>
+        <button type="button" class="btn" data-value="TP2">TP2</button>
+        <button type="button" class="btn" data-value="TP3">TP3</button>
+        <button type="button" class="btn" data-value="Bezubitok">Bezubitok</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">7. Natija</div>
+      <div class="grid-2" data-group="result">
+        <button type="button" class="btn profit active" data-value="Foyda">✅ Foyda</button>
+        <button type="button" class="btn loss" data-value="Zarar">❌ Zarar</button>
+      </div>
+
+      <div class="loss-box" id="lossBox">
+        <div class="label">Nega zarar boʻldi?</div>
+        <div class="grid-2" data-group="lossReason">
+          <button type="button" class="btn active" data-value="Spred / Impuls">Spred / Impuls</button>
+          <button type="button" class="btn" data-value="Erta kirish">Erta kirish</button>
+          <button type="button" class="btn" data-value="Trendga qarshi">Trendga qarshi</button>
+          <button type="button" class="btn" data-value="Boshqa">Boshqa</button>
+        </div>
+        <input type="text" id="extraNote" class="note-input" placeholder="Qoʻshimcha qisqa izoh (ixtiyoriy)..." />
+      </div>
+    </div>
+
+    <button type="button" class="submit-btn" id="submitBtn">Saqlash va Kanalga Yuborish</button>
+    <div class="status" id="statusBox"></div>
   </div>
 
-  <button type="button" class="submit-btn" id="submitBtn">Saqlash va Kanalga Yuborish</button>
-  <div class="status" id="statusBox"></div>
+  <!-- 3-EKRAN: STATISTIKA -->
+  <div class="screen" id="screenStats">
+    <div class="topbar">
+      <div>
+        <div class="title">📊 Statistika</div>
+        <div class="subtitle">Rejim va bitimlar sonini tanlang</div>
+      </div>
+      <button type="button" class="back-btn" id="backFromStats">⬅️ Menyu</button>
+    </div>
+
+    <!-- 3A. Avval rejim tanlanadi -->
+    <div class="section">
+      <div class="label">1. Qaysi statistikani koʻrmoqchisiz?</div>
+      <div class="grid-2">
+        <button type="button" class="btn" id="pickStatRealtime">🔴 Realtime</button>
+        <button type="button" class="btn" id="pickStatBacktest">🧪 Backtest</button>
+      </div>
+    </div>
+
+    <!-- 3B. Rejim tanlangach son / barchasi chiqadi -->
+    <div class="section" id="scopeSection" style="display:none;">
+      <div class="label" id="scopeLabelTitle">2. Bitimlar hajmini tanlang</div>
+      <div class="grid-2">
+        <button type="button" class="btn" data-scope="10">Oxirgi 10 ta</button>
+        <button type="button" class="btn" data-scope="50">Oxirgi 50 ta</button>
+        <button type="button" class="btn" data-scope="100">Oxirgi 100 ta</button>
+        <button type="button" class="btn" data-scope="all">Barchasi (Toʻliq)</button>
+      </div>
+
+      <div class="custom-row">
+        <input type="number" id="customCountInput" class="num-input" min="1" max="5000" placeholder="Oʻzingiz son kiriting (mas: 25)..." />
+        <button type="button" class="btn active" id="customCountBtn" style="padding:0 16px;">Koʻrish</button>
+      </div>
+    </div>
+
+    <!-- Loading holati -->
+    <div class="loading-box" id="statsLoading">
+      <div class="spinner"></div>
+      <div style="font-weight:700;font-size:14px;">Statistika hisoblanmoqda...</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">Jadvaldan maʼlumotlar olinmoqda</div>
+    </div>
+
+    <!-- Natija kartasi -->
+    <div class="result-card" id="statsResultCard">
+      <div class="label" id="resultHeaderText" style="color:var(--text);font-size:13px;font-weight:700;">Natija</div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-val blue" id="resWinRate">0%</div>
+          <div class="kpi-lbl">Win Rate</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val green" id="resWins">0</div>
+          <div class="kpi-lbl">Foyda</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val red" id="resLosses">0</div>
+          <div class="kpi-lbl">Zarar</div>
+        </div>
+      </div>
+
+      <div class="info-list">
+        <div class="info-row">
+          <span class="info-k">Hisoblangan bitimlar:</span>
+          <span class="info-v" id="resTotal">0</span>
+        </div>
+        <div class="info-row">
+          <span class="info-k">TP1 / TP2 / TP3 / BE:</span>
+          <span class="info-v" id="resPlans">0 / 0 / 0 / 0</span>
+        </div>
+        <div class="info-row">
+          <span class="info-k">Eng koʻp zarar sababi:</span>
+          <span class="info-v" id="resTopLoss">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-k">VAH / VAL natijasi:</span>
+          <span class="info-v" id="resZones">-</span>
+        </div>
+        <div class="info-row">
+          <span class="info-k">Juftliklar boʻyicha:</span>
+          <span class="info-v" id="resPairs">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // O'zingizning Google Apps Script Web App URL manzilingizni kiriting:
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuHwltZ0x7gxrM_FxXWK4JvipUNrs4MmsA4B5-n7BF_aOElo2Bi82L-sB8UfbrH70K/exec";
 
     const tg = window.Telegram && window.Telegram.WebApp;
@@ -486,9 +467,8 @@
       tg.expand();
     }
 
-    const state = {
+    const entryState = {
       mode: "Realtime",
-      limit: 10,
       pair: "EUR/USD",
       trend4H: "SELL",
       zone15M: "VAH",
@@ -499,78 +479,58 @@
       lossReason: "Spred / Impuls"
     };
 
+    const statsState = {
+      mode: null,
+      scope: null
+    };
+
+    const screens = {
+      home: document.getElementById("screenHome"),
+      entry: document.getElementById("screenEntry"),
+      stats: document.getElementById("screenStats")
+    };
+
+    function showScreen(name) {
+      Object.keys(screens).forEach(k => screens[k].classList.remove("active"));
+      screens[name].classList.add("active");
+      window.scrollTo(0, 0);
+    }
+
+    // Bosh menyu tugmalari
+    document.getElementById("openRealtimeBtn").addEventListener("click", () => {
+      entryState.mode = "Realtime";
+      document.getElementById("entryTitle").textContent = "🔴 Realtime Savdo";
+      document.getElementById("statusBox").className = "status";
+      showScreen("entry");
+    });
+
+    document.getElementById("openBacktestBtn").addEventListener("click", () => {
+      entryState.mode = "Backtest";
+      document.getElementById("entryTitle").textContent = "🧪 Backtest Savdo";
+      document.getElementById("statusBox").className = "status";
+      showScreen("entry");
+    });
+
+    document.getElementById("openStatsBtn").addEventListener("click", () => {
+      statsState.mode = null;
+      statsState.scope = null;
+      document.getElementById("pickStatRealtime").classList.remove("active");
+      document.getElementById("pickStatBacktest").classList.remove("active");
+      document.querySelectorAll("[data-scope]").forEach(b => b.classList.remove("active"));
+      document.getElementById("scopeSection").style.display = "none";
+      document.getElementById("statsLoading").classList.remove("show");
+      document.getElementById("statsResultCard").classList.remove("show");
+      showScreen("stats");
+    });
+
+    document.getElementById("backFromEntry").addEventListener("click", () => showScreen("home"));
+    document.getElementById("backFromStats").addEventListener("click", () => showScreen("home"));
+
+    // Savdo kiritish tugmalari
     const lossBox = document.getElementById("lossBox");
-    const modeBadge = document.getElementById("modeBadge");
-    const statModeLabel = document.getElementById("statModeLabel");
-    const statStatusText = document.getElementById("statStatusText");
     const extraNote = document.getElementById("extraNote");
     const submitBtn = document.getElementById("submitBtn");
     const statusBox = document.getElementById("statusBox");
-    const customLimitInput = document.getElementById("customLimitInput");
-    const applyLimitBtn = document.getElementById("applyLimitBtn");
-
-    function renderStats(data) {
-      document.getElementById("kpiWinRate").textContent = (data.winRate ?? 0) + "%";
-      document.getElementById("kpiWins").textContent = data.winCount ?? 0;
-      document.getElementById("kpiLosses").textContent = data.lossCount ?? 0;
-
-      document.getElementById("statSampleInfo").textContent =
-        `${data.totalCount ?? 0} / ${state.limit}`;
-
-      document.getElementById("statTargets").textContent =
-        `${data.tp1Count ?? 0} / ${data.tp2Count ?? 0} / ${data.tp3Count ?? 0} / ${data.beCount ?? 0}`;
-
-      document.getElementById("statTopLoss").textContent = data.topLossReason || "-";
-
-      const bz = data.byZone || {};
-      const vah = bz.VAH ? `${bz.VAH.win}/${bz.VAH.total}` : "0/0";
-      const val = bz.VAL ? `${bz.VAL.win}/${bz.VAL.total}` : "0/0";
-      document.getElementById("statZones").textContent = `VAH: ${vah} • VAL: ${val}`;
-    }
-
-    async function loadStats() {
-      if (!SCRIPT_URL || SCRIPT_URL.indexOf("BU_YERGA_") === 0) {
-        statStatusText.textContent = "URL kiritilmagan";
-        return;
-      }
-
-      statModeLabel.textContent = state.mode;
-      statStatusText.textContent = "Yangilanmoqda...";
-
-      try {
-        const url = `${SCRIPT_URL}?mode=${encodeURIComponent(state.mode)}&limit=${encodeURIComponent(state.limit)}&_=${Date.now()}`;
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data && data.ok) {
-          renderStats(data);
-          statStatusText.textContent = `Oxirgi ${state.limit}`;
-        } else {
-          statStatusText.textContent = "Xato";
-        }
-      } catch (e) {
-        statStatusText.textContent = "Ulanmadi";
-      }
-    }
-
-    document.querySelectorAll(".preset-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        state.limit = parseInt(btn.getAttribute("data-limit"), 10);
-        customLimitInput.value = "";
-        loadStats();
-      });
-    });
-
-    applyLimitBtn.addEventListener("click", () => {
-      const val = parseInt(customLimitInput.value, 10);
-      if (!isNaN(val) && val > 0 && val <= 1000) {
-        document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
-        state.limit = val;
-        loadStats();
-      }
-    });
 
     document.querySelectorAll("[data-group]").forEach(group => {
       const key = group.getAttribute("data-group");
@@ -578,15 +538,10 @@
         btn.addEventListener("click", () => {
           group.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
-          state[key] = btn.getAttribute("data-value");
-
-          if (key === "mode") {
-            modeBadge.textContent = state.mode.toUpperCase();
-            loadStats();
-          }
+          entryState[key] = btn.getAttribute("data-value");
 
           if (key === "result") {
-            if (state.result === "Zarar") {
+            if (entryState.result === "Zarar") {
               lossBox.classList.add("show");
             } else {
               lossBox.classList.remove("show");
@@ -597,32 +552,32 @@
       });
     });
 
-    function showStatus(msg, isOk) {
+    function showEntryStatus(msg, isOk) {
       statusBox.textContent = msg;
       statusBox.className = "status show " + (isOk ? "ok" : "err");
     }
 
     submitBtn.addEventListener("click", async () => {
       if (!SCRIPT_URL || SCRIPT_URL.indexOf("BU_YERGA_") === 0) {
-        showStatus("Avval SCRIPT_URL manzilini kodga kiriting!", false);
+        showEntryStatus("Avval SCRIPT_URL manzilini kodga kiriting!", false);
         return;
       }
 
       let finalReason = "-";
-      if (state.result === "Zarar") {
+      if (entryState.result === "Zarar") {
         const noteVal = extraNote.value.trim();
-        finalReason = noteVal ? `${state.lossReason} (${noteVal})` : state.lossReason;
+        finalReason = noteVal ? `${entryState.lossReason} (${noteVal})` : entryState.lossReason;
       }
 
       const payload = {
-        mode: state.mode,
-        pair: state.pair,
-        trend4H: state.trend4H,
-        zone15M: state.zone15M,
-        side: state.side,
-        volume15M: state.volume15M,
-        plan: state.plan,
-        result: state.result,
+        mode: entryState.mode,
+        pair: entryState.pair,
+        trend4H: entryState.trend4H,
+        zone15M: entryState.zone15M,
+        side: entryState.side,
+        volume15M: entryState.volume15M,
+        plan: entryState.plan,
+        result: entryState.result,
         lossReason: finalReason
       };
 
@@ -637,20 +592,103 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-
-        showStatus("Saqlandi va kanalga yuborildi!", true);
+        showEntryStatus("Saqlandi va kanalga yuborildi!", true);
         extraNote.value = "";
-        setTimeout(loadStats, 1200);
       } catch (e) {
-        showStatus("Xatolik yuz berdi. Internet yoki URL ni tekshiring.", false);
+        showEntryStatus("Xatolik yuz berdi. Internet yoki URL ni tekshiring.", false);
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Saqlash va Kanalga Yuborish";
       }
     });
 
-    // Sahifa ochilishi bilanoq statistikani yuklash
-    loadStats();
+    // Statistika bosqichlari
+    const pickRt = document.getElementById("pickStatRealtime");
+    const pickBt = document.getElementById("pickStatBacktest");
+    const scopeSection = document.getElementById("scopeSection");
+    const scopeLabelTitle = document.getElementById("scopeLabelTitle");
+    const statsLoading = document.getElementById("statsLoading");
+    const statsResultCard = document.getElementById("statsResultCard");
+
+    function selectStatMode(modeName) {
+      statsState.mode = modeName;
+      pickRt.classList.toggle("active", modeName === "Realtime");
+      pickBt.classList.toggle("active", modeName === "Backtest");
+      scopeLabelTitle.textContent = `2. ${modeName} uchun sonni tanlang`;
+      scopeSection.style.display = "block";
+      document.querySelectorAll("[data-scope]").forEach(b => b.classList.remove("active"));
+      statsResultCard.classList.remove("show");
+    }
+
+    pickRt.addEventListener("click", () => selectStatMode("Realtime"));
+    pickBt.addEventListener("click", () => selectStatMode("Backtest"));
+
+    async function fetchAndShowStats(scopeVal) {
+      if (!statsState.mode) return;
+      if (!SCRIPT_URL || SCRIPT_URL.indexOf("BU_YERGA_") === 0) {
+        alert("SCRIPT_URL manzilini kiriting!");
+        return;
+      }
+
+      statsState.scope = scopeVal;
+      statsResultCard.classList.remove("show");
+      statsLoading.classList.add("show");
+
+      try {
+        const url = `${SCRIPT_URL}?mode=${encodeURIComponent(statsState.mode)}&limit=${encodeURIComponent(scopeVal)}&_=${Date.now()}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        statsLoading.classList.remove("show");
+        if (!data || !data.ok) {
+          alert("Statistika olishda xatolik yuz berdi.");
+          return;
+        }
+
+        const labelText = scopeVal === "all" ? "Barchasi" : `Oxirgi ${scopeVal} ta`;
+        document.getElementById("resultHeaderText").textContent =
+          `${statsState.mode === "Realtime" ? "🔴 Realtime" : "🧪 Backtest"} — ${labelText}`;
+
+        document.getElementById("resWinRate").textContent = (data.winRate ?? 0) + "%";
+        document.getElementById("resWins").textContent = data.winCount ?? 0;
+        document.getElementById("resLosses").textContent = data.lossCount ?? 0;
+        document.getElementById("resTotal").textContent = data.totalCount ?? 0;
+        document.getElementById("resPlans").textContent =
+          `${data.tp1Count ?? 0} / ${data.tp2Count ?? 0} / ${data.tp3Count ?? 0} / ${data.beCount ?? 0}`;
+        document.getElementById("resTopLoss").textContent = data.topLossReason || "-";
+
+        const bz = data.byZone || {};
+        const vah = bz.VAH ? `${bz.VAH.win}/${bz.VAH.total}` : "0/0";
+        const val = bz.VAL ? `${bz.VAL.win}/${bz.VAL.total}` : "0/0";
+        document.getElementById("resZones").textContent = `VAH: ${vah} | VAL: ${val}`;
+
+        const bp = data.byPair || {};
+        const pairParts = Object.keys(bp).map(p => `${p}: ${bp[p].win}/${bp[p].total}`);
+        document.getElementById("resPairs").textContent = pairParts.length ? pairParts.join(" • ") : "-";
+
+        statsResultCard.classList.add("show");
+      } catch (e) {
+        statsLoading.classList.remove("show");
+        alert("Serverga ulanib boʻlmadi.");
+      }
+    }
+
+    document.querySelectorAll("[data-scope]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-scope]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("customCountInput").value = "";
+        fetchAndShowStats(btn.getAttribute("data-scope"));
+      });
+    });
+
+    document.getElementById("customCountBtn").addEventListener("click", () => {
+      const val = parseInt(document.getElementById("customCountInput").value, 10);
+      if (!isNaN(val) && val > 0 && val <= 5000) {
+        document.querySelectorAll("[data-scope]").forEach(b => b.classList.remove("active"));
+        fetchAndShowStats(String(val));
+      }
+    });
   </script>
 </body>
 </html>
