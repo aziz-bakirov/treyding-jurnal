@@ -30,7 +30,7 @@
 
     body {
       margin: 0;
-      padding: 16px 14px 40px;
+      padding: 14px 12px 44px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
       background: var(--bg);
       color: var(--text);
@@ -41,24 +41,24 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       letter-spacing: -0.3px;
     }
 
     .subtitle {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--muted);
       margin-top: 2px;
     }
 
     .badge-live {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       padding: 6px 10px;
       border-radius: 999px;
       background: var(--accent-soft);
@@ -71,7 +71,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 11px;
     }
 
     .label {
@@ -108,8 +108,8 @@
       background: var(--card-2);
       color: var(--text);
       border-radius: 12px;
-      padding: 12px 10px;
-      font-size: 14px;
+      padding: 11px 10px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
@@ -135,14 +135,126 @@
       background: var(--green-soft);
       border-color: var(--green);
       color: #6ee7b7;
-      box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.25);
     }
 
     .btn.loss.active {
       background: var(--red-soft);
       border-color: var(--red);
       color: #fca5a5;
-      box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.25);
+    }
+
+    /* Statistika bloki */
+    .stats-controls {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .preset-btn {
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .preset-btn.active {
+      background: var(--accent-soft);
+      color: #bfdbfe;
+      border-color: var(--accent);
+    }
+
+    .custom-limit-wrap {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .num-input {
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .num-input:focus {
+      border-color: var(--accent);
+    }
+
+    .refresh-btn {
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .kpi {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px;
+      text-align: center;
+    }
+
+    .kpi-val {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .kpi-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .kpi-val.green { color: #34d399; }
+    .kpi-val.red { color: #f87171; }
+    .kpi-val.blue { color: #60a5fa; }
+
+    .detail-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .detail-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-val {
+      color: var(--text);
+      font-weight: 600;
     }
 
     .loss-box {
@@ -175,7 +287,7 @@
     .submit-btn {
       width: 100%;
       margin-top: 6px;
-      padding: 15px;
+      padding: 14px;
       border-radius: 14px;
       border: none;
       font-size: 15px;
@@ -184,11 +296,6 @@
       background: linear-gradient(135deg, #2563eb, #3b82f6);
       color: #ffffff;
       box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
-      transition: transform 0.08s ease, opacity 0.15s ease;
-    }
-
-    .submit-btn:active {
-      transform: scale(0.98);
     }
 
     .submit-btn:disabled {
@@ -197,8 +304,8 @@
     }
 
     .status {
-      margin-top: 12px;
-      padding: 12px;
+      margin-top: 10px;
+      padding: 11px;
       border-radius: 12px;
       font-size: 13px;
       display: none;
@@ -206,16 +313,12 @@
       font-weight: 600;
     }
 
-    .status.show {
-      display: block;
-    }
-
+    .status.show { display: block; }
     .status.ok {
       background: var(--green-soft);
       color: #6ee7b7;
       border: 1px solid rgba(16, 185, 129, 0.35);
     }
-
     .status.err {
       background: var(--red-soft);
       color: #fca5a5;
@@ -232,12 +335,64 @@
     <div class="badge-live" id="modeBadge">REALTIME</div>
   </div>
 
-  <!-- 1. Rejim -->
+  <!-- 1. Rejim (Kirishdayoq tanlanadi va statistikaga ham ta'sir qiladi) -->
   <div class="section">
     <div class="label"><span>1. Rejim</span></div>
     <div class="grid-2" data-group="mode">
       <button type="button" class="btn active" data-value="Realtime">🔴 Realtime</button>
       <button type="button" class="btn" data-value="Backtest">🧪 Backtest</button>
+    </div>
+  </div>
+
+  <!-- Statistika bo'limi -->
+  <div class="section">
+    <div class="label">
+      <span>📊 Statistika (<span id="statModeLabel">Realtime</span>)</span>
+      <span id="statStatusText" style="font-size:11px;color:#60a5fa;">Yuklanmoqda...</span>
+    </div>
+
+    <div class="stats-controls">
+      <button type="button" class="preset-btn active" data-limit="10">Oxirgi 10</button>
+      <button type="button" class="preset-btn" data-limit="50">50</button>
+      <button type="button" class="preset-btn" data-limit="100">100</button>
+      <div class="custom-limit-wrap">
+        <input type="number" id="customLimitInput" class="num-input" min="1" max="1000" placeholder="Son (mas: 25)" />
+        <button type="button" class="refresh-btn" id="applyLimitBtn">Koʻr</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-val blue" id="kpiWinRate">0%</div>
+        <div class="kpi-lbl">Win Rate</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val green" id="kpiWins">0</div>
+        <div class="kpi-lbl">Foyda</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val red" id="kpiLosses">0</div>
+        <div class="kpi-lbl">Zarar</div>
+      </div>
+    </div>
+
+    <div class="detail-box">
+      <div class="detail-row">
+        <span>Qamralgan bitimlar:</span>
+        <span class="detail-val" id="statSampleInfo">0 / 10</span>
+      </div>
+      <div class="detail-row">
+        <span>TP1 / TP2 / TP3 / BE:</span>
+        <span class="detail-val" id="statTargets">0 / 0 / 0 / 0</span>
+      </div>
+      <div class="detail-row">
+        <span>Koʻp zarar sababi:</span>
+        <span class="detail-val" id="statTopLoss">-</span>
+      </div>
+      <div class="detail-row">
+        <span>Zona (VAH / VAL):</span>
+        <span class="detail-val" id="statZones">-</span>
+      </div>
     </div>
   </div>
 
@@ -322,8 +477,8 @@
   <div class="status" id="statusBox"></div>
 
   <script>
-    // 2-bosqichda olgan Web App URL manzilingizni shu yerga qo'ying:
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuHwltZ0x7gxrM_FxXWK4JvipUNrs4MmsA4B5-n7BF_aOElo2Bi82L-sB8UfbrH70K/exec";
+    // O'zingizning Google Apps Script Web App URL manzilingizni kiriting:
+    const SCRIPT_URL = "BU_YERGA_GOOGLE_APPS_SCRIPT_URL_YOZING";
 
     const tg = window.Telegram && window.Telegram.WebApp;
     if (tg) {
@@ -333,6 +488,7 @@
 
     const state = {
       mode: "Realtime",
+      limit: 10,
       pair: "EUR/USD",
       trend4H: "SELL",
       zone15M: "VAH",
@@ -345,9 +501,76 @@
 
     const lossBox = document.getElementById("lossBox");
     const modeBadge = document.getElementById("modeBadge");
+    const statModeLabel = document.getElementById("statModeLabel");
+    const statStatusText = document.getElementById("statStatusText");
     const extraNote = document.getElementById("extraNote");
     const submitBtn = document.getElementById("submitBtn");
     const statusBox = document.getElementById("statusBox");
+    const customLimitInput = document.getElementById("customLimitInput");
+    const applyLimitBtn = document.getElementById("applyLimitBtn");
+
+    function renderStats(data) {
+      document.getElementById("kpiWinRate").textContent = (data.winRate ?? 0) + "%";
+      document.getElementById("kpiWins").textContent = data.winCount ?? 0;
+      document.getElementById("kpiLosses").textContent = data.lossCount ?? 0;
+
+      document.getElementById("statSampleInfo").textContent =
+        `${data.totalCount ?? 0} / ${state.limit}`;
+
+      document.getElementById("statTargets").textContent =
+        `${data.tp1Count ?? 0} / ${data.tp2Count ?? 0} / ${data.tp3Count ?? 0} / ${data.beCount ?? 0}`;
+
+      document.getElementById("statTopLoss").textContent = data.topLossReason || "-";
+
+      const bz = data.byZone || {};
+      const vah = bz.VAH ? `${bz.VAH.win}/${bz.VAH.total}` : "0/0";
+      const val = bz.VAL ? `${bz.VAL.win}/${bz.VAL.total}` : "0/0";
+      document.getElementById("statZones").textContent = `VAH: ${vah} • VAL: ${val}`;
+    }
+
+    async function loadStats() {
+      if (!SCRIPT_URL || SCRIPT_URL.indexOf("BU_YERGA_") === 0) {
+        statStatusText.textContent = "URL kiritilmagan";
+        return;
+      }
+
+      statModeLabel.textContent = state.mode;
+      statStatusText.textContent = "Yangilanmoqda...";
+
+      try {
+        const url = `${SCRIPT_URL}?mode=${encodeURIComponent(state.mode)}&limit=${encodeURIComponent(state.limit)}&_=${Date.now()}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data && data.ok) {
+          renderStats(data);
+          statStatusText.textContent = `Oxirgi ${state.limit}`;
+        } else {
+          statStatusText.textContent = "Xato";
+        }
+      } catch (e) {
+        statStatusText.textContent = "Ulanmadi";
+      }
+    }
+
+    document.querySelectorAll(".preset-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.limit = parseInt(btn.getAttribute("data-limit"), 10);
+        customLimitInput.value = "";
+        loadStats();
+      });
+    });
+
+    applyLimitBtn.addEventListener("click", () => {
+      const val = parseInt(customLimitInput.value, 10);
+      if (!isNaN(val) && val > 0 && val <= 1000) {
+        document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+        state.limit = val;
+        loadStats();
+      }
+    });
 
     document.querySelectorAll("[data-group]").forEach(group => {
       const key = group.getAttribute("data-group");
@@ -359,6 +582,7 @@
 
           if (key === "mode") {
             modeBadge.textContent = state.mode.toUpperCase();
+            loadStats();
           }
 
           if (key === "result") {
@@ -416,6 +640,7 @@
 
         showStatus("Saqlandi va kanalga yuborildi!", true);
         extraNote.value = "";
+        setTimeout(loadStats, 1200);
       } catch (e) {
         showStatus("Xatolik yuz berdi. Internet yoki URL ni tekshiring.", false);
       } finally {
@@ -423,6 +648,9 @@
         submitBtn.textContent = "Saqlash va Kanalga Yuborish";
       }
     });
+
+    // Sahifa ochilishi bilanoq statistikani yuklash
+    loadStats();
   </script>
 </body>
 </html>
