@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Treyding Jurnal</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card: #131a26;
+      --card-2: #192232;
+      --text: #f3f6fb;
+      --muted: #8b9bb4;
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.16);
+      --green: #10b981;
+      --green-soft: rgba(16, 185, 129, 0.16);
+      --red: #ef4444;
+      --red-soft: rgba(239, 68, 68, 0.16);
+      --amber: #f59e0b;
+      --amber-soft: rgba(245, 158, 11, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px 14px 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.35;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .badge-live {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--card-2);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #bfdbfe;
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25);
+    }
+
+    .btn.profit.active {
+      background: var(--green-soft);
+      border-color: var(--green);
+      color: #6ee7b7;
+      box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn.loss.active {
+      background: var(--red-soft);
+      border-color: var(--red);
+      color: #fca5a5;
+      box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.25);
+    }
+
+    .loss-box {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .loss-box.show {
+      display: block;
+    }
+
+    .note-input {
+      width: 100%;
+      margin-top: 8px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .note-input:focus {
+      border-color: var(--accent);
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 6px;
+      padding: 15px;
+      border-radius: 14px;
+      border: none;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+      transition: transform 0.08s ease, opacity 0.15s ease;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      display: none;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.ok {
+      background: var(--green-soft);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .status.err {
+      background: var(--red-soft);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <div class="title">Treyding Jurnal</div>
+      <div class="subtitle">4H EMA 200 • 15M VAH/VAL • 15M Volume</div>
+    </div>
+    <div class="badge-live" id="modeBadge">REALTIME</div>
+  </div>
+
+  <!-- 1. Rejim -->
+  <div class="section">
+    <div class="label"><span>1. Rejim</span></div>
+    <div class="grid-2" data-group="mode">
+      <button type="button" class="btn active" data-value="Realtime">🔴 Realtime</button>
+      <button type="button" class="btn" data-value="Backtest">🧪 Backtest</button>
+    </div>
+  </div>
+
+  <!-- 2. Juftlik -->
+  <div class="section">
+    <div class="label"><span>2. Juftlik</span></div>
+    <div class="grid-3" data-group="pair">
+      <button type="button" class="btn active" data-value="EUR/USD">EUR/USD</button>
+      <button type="button" class="btn" data-value="AUD/USD">AUD/USD</button>
+      <button type="button" class="btn" data-value="USD/CAD">USD/CAD</button>
+    </div>
+  </div>
+
+  <!-- 3. 4H Trend -->
+  <div class="section">
+    <div class="label"><span>3. 4H Trend (EMA 200)</span></div>
+    <div class="grid-2" data-group="trend4H">
+      <button type="button" class="btn active" data-value="SELL">📉 SELL</button>
+      <button type="button" class="btn" data-value="BUY">📈 BUY</button>
+    </div>
+  </div>
+
+  <!-- 4. 15M VRVP Zona (Faqat VAH yoki VAL) -->
+  <div class="section">
+    <div class="label"><span>4. 15M VRVP Zona</span></div>
+    <div class="grid-2" data-group="zone15M">
+      <button type="button" class="btn active" data-value="VAH">VAH</button>
+      <button type="button" class="btn" data-value="VAL">VAL</button>
+    </div>
+  </div>
+
+  <!-- 5. Yo'nalish -->
+  <div class="section">
+    <div class="label"><span>5. Yoʻnalish</span></div>
+    <div class="grid-2" data-group="side">
+      <button type="button" class="btn active" data-value="SELL">SELL</button>
+      <button type="button" class="btn" data-value="BUY">BUY</button>
+    </div>
+  </div>
+
+  <!-- 6. 15M Volume -->
+  <div class="section">
+    <div class="label"><span>6. 15M Volume</span></div>
+    <div class="grid-2" data-group="volume15M">
+      <button type="button" class="btn active" data-value="Katta">📊 Katta</button>
+      <button type="button" class="btn" data-value="Kichik">📉 Kichik</button>
+    </div>
+  </div>
+
+  <!-- 7. Reja (TP / Bezubitok) -->
+  <div class="section">
+    <div class="label"><span>7. Reja (TP / Himoya)</span></div>
+    <div class="grid-4" data-group="plan">
+      <button type="button" class="btn active" data-value="TP1">TP1</button>
+      <button type="button" class="btn" data-value="TP2">TP2</button>
+      <button type="button" class="btn" data-value="TP3">TP3</button>
+      <button type="button" class="btn" data-value="Bezubitok">Bezubitok</button>
+    </div>
+  </div>
+
+  <!-- 8. Natija -->
+  <div class="section">
+    <div class="label"><span>8. Natija</span></div>
+    <div class="grid-2" data-group="result">
+      <button type="button" class="btn profit active" data-value="Foyda">✅ Foyda</button>
+      <button type="button" class="btn loss" data-value="Zarar">❌ Zarar</button>
+    </div>
+
+    <div class="loss-box" id="lossBox">
+      <div class="label" style="margin-top:4px;"><span>Nega zarar boʻldi?</span></div>
+      <div class="grid-2" data-group="lossReason">
+        <button type="button" class="btn active" data-value="Spred / Impuls">Spred / Impuls</button>
+        <button type="button" class="btn" data-value="Erta kirish">Erta kirish</button>
+        <button type="button" class="btn" data-value="Trendga qarshi">Trendga qarshi</button>
+        <button type="button" class="btn" data-value="Boshqa">Boshqa</button>
+      </div>
+      <input type="text" id="extraNote" class="note-input" placeholder="Qoʻshimcha qisqa izoh (ixtiyoriy)..." />
+    </div>
+  </div>
+
+  <button type="button" class="submit-btn" id="submitBtn">Saqlash va Kanalga Yuborish</button>
+  <div class="status" id="statusBox"></div>
+
+  <script>
+    // 2-bosqichda olgan Web App URL manzilingizni shu yerga qo'ying:
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuHwltZ0x7gxrM_FxXWK4JvipUNrs4MmsA4B5-n7BF_aOElo2Bi82L-sB8UfbrH70K/exec";
+
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
+
+    const state = {
+      mode: "Realtime",
+      pair: "EUR/USD",
+      trend4H: "SELL",
+      zone15M: "VAH",
+      side: "SELL",
+      volume15M: "Katta",
+      plan: "TP1",
+      result: "Foyda",
+      lossReason: "Spred / Impuls"
+    };
+
+    const lossBox = document.getElementById("lossBox");
+    const modeBadge = document.getElementById("modeBadge");
+    const extraNote = document.getElementById("extraNote");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusBox = document.getElementById("statusBox");
+
+    document.querySelectorAll("[data-group]").forEach(group => {
+      const key = group.getAttribute("data-group");
+      group.querySelectorAll(".btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          group.querySelectorAll(".btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state[key] = btn.getAttribute("data-value");
+
+          if (key === "mode") {
+            modeBadge.textContent = state.mode.toUpperCase();
+          }
+
+          if (key === "result") {
+            if (state.result === "Zarar") {
+              lossBox.classList.add("show");
+            } else {
+              lossBox.classList.remove("show");
+              extraNote.value = "";
+            }
+          }
+        });
+      });
+    });
+
+    function showStatus(msg, isOk) {
+      statusBox.textContent = msg;
+      statusBox.className = "status show " + (isOk ? "ok" : "err");
+    }
+
+    submitBtn.addEventListener("click", async () => {
+      if (!SCRIPT_URL || SCRIPT_URL.indexOf("BU_YERGA_") === 0) {
+        showStatus("Avval SCRIPT_URL manzilini kodga kiriting!", false);
+        return;
+      }
+
+      let finalReason = "-";
+      if (state.result === "Zarar") {
+        const noteVal = extraNote.value.trim();
+        finalReason = noteVal ? `${state.lossReason} (${noteVal})` : state.lossReason;
+      }
+
+      const payload = {
+        mode: state.mode,
+        pair: state.pair,
+        trend4H: state.trend4H,
+        zone15M: state.zone15M,
+        side: state.side,
+        volume15M: state.volume15M,
+        plan: state.plan,
+        result: state.result,
+        lossReason: finalReason
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Yuborilyapti...";
+      statusBox.className = "status";
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        showStatus("Saqlandi va kanalga yuborildi!", true);
+        extraNote.value = "";
+      } catch (e) {
+        showStatus("Xatolik yuz berdi. Internet yoki URL ni tekshiring.", false);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Saqlash va Kanalga Yuborish";
+      }
+    });
+  </script>
+</body>
+</html>
